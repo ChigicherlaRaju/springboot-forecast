@@ -12,17 +12,30 @@ import org.springframework.stereotype.Service;
 import com.boot.forecast.filter.model.CustomUser;
 import com.boot.forecast.filter.repository.CustomUserRepository;
 
+// TODO: Auto-generated Javadoc
 // @formatter:off
 
+/**
+ * The Class CustomUserDetailsService.
+ */
 @Service("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 	
+	/** The user repository. */
 	@Autowired
 	private CustomUserRepository userRepository;
 	
+	/** The password encoder. */
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * Load user by user name.
+	 *
+	 * @param username the user name
+	 * @return the user details
+	 * @throws UsernameNotFoundException the {@link UsernameNotFoundException}
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		CustomUser user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Bad Credentials"));

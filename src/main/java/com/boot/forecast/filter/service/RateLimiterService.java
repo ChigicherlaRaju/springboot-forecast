@@ -19,17 +19,30 @@ import io.github.bucket4j.Refill;
 
 // @formatter:off
 
+/**
+ * The Class RateLimiterService.
+ */
 @Service
 public class RateLimiterService {
 
+	/** The bucket cache. */
 	private final Map<String, Bucket> bucketCache = new ConcurrentHashMap<String, Bucket>();
 
+	/** The user service. */
 	@Autowired
 	private UserService userService;
 
+	/** The path details repository. */
 	@Autowired
 	private PathDetailsRepository pathDetailsRepository;
 
+	/**
+	 * Resolve bucket.
+	 *
+	 * @param userId the user id
+	 * @param path the path
+	 * @return the bucket
+	 */
 	public synchronized Bucket resolveBucket(final String userId, final String path) {
 		String userPath = new StringBuilder(userId).append(path).toString();
 
@@ -42,10 +55,23 @@ public class RateLimiterService {
 		}
 	}
 
+	/**
+	 * Delete if exists.
+	 *
+	 * @param userId the user id
+	 * @param path the path
+	 */
 	public void deleteIfExists(final String userId, final String path) {
 		bucketCache.remove(new StringBuilder(userId).append(path).toString());
 	}
 
+	/**
+	 * New bucket.
+	 *
+	 * @param userId the user id
+	 * @param path the path
+	 * @return the bucket
+	 */
 	private Bucket newBucket(final String userId, final String path) {
 		UserDto userDetails = userService.getUserDetails(userId);
 		if (!CollectionUtils.isEmpty(userDetails.getPathDetails())) {

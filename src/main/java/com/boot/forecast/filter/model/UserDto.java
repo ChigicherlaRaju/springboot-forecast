@@ -16,9 +16,20 @@ import lombok.NonNull;
 @Builder
 @JsonInclude(content = Include.NON_NULL)
 public class UserDto {
+
+	/** The user. */
 	private CustomUser user;
+
+	/** The path details. */
 	private List<PathDetails> pathDetails;
 
+	/**
+	 * Gets the all details.
+	 *
+	 * @param user        the user
+	 * @param pathDetails the path details
+	 * @return the all details
+	 */
 	public static UserDto getAllDetails(@NonNull CustomUser user, @NonNull List<PathDetails> pathDetails) {
 		return UserDto.builder().user(user).pathDetails(pathDetails).build();
 	}

@@ -23,7 +23,7 @@ public class ForecastUtil {
 	}
 
 	/**
-	 * Average of the Weather - Temperature & Wind
+	 * Average of the Weather - Temperature & Wind.
 	 *
 	 * @param list the list of {@link WeatherMapTimeDTO}
 	 * @return the weather average DTO {@link WeatherAverageDTO}

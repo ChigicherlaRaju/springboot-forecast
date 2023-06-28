@@ -1,7 +1,5 @@
 package com.boot.forecast;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,26 +7,41 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 import com.boot.forecast.filter.model.CustomUser;
 import com.boot.forecast.filter.model.PathDetails;
-import com.boot.forecast.filter.repository.PathDetailsRepository;
 import com.boot.forecast.filter.repository.CustomUserRepository;
+import com.boot.forecast.filter.repository.PathDetailsRepository;
+
+import jakarta.annotation.PostConstruct;
 
 // @formatter:off
 
+/**
+ * The Class SpringbootForecastApplication.
+ */
 @SpringBootApplication
 @ConfigurationPropertiesScan
 public class SpringbootForecastApplication {
 	
+	/** The path details repository. */
 	@Autowired
 	private PathDetailsRepository pathDetailsRepository;
 	
+	/** The user repository. */
 	@Autowired
 	private CustomUserRepository userRepository;
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootForecastApplication.class, args);
 	}
 	
+	/**
+	 * Load data.
+	 */
 	@PostConstruct
 	public void loadData() {
 		userRepository.save(CustomUser.builder().username("user1").password("password").build());

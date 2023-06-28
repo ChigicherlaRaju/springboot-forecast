@@ -36,10 +36,10 @@ class ForecastControllerTest {
 	@Autowired
 	MockMvc mockMvc;
 
-	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@WithMockUser(username = "user1", password = "password", roles = {"USER"})
-	public void testWeatherForecastAverage() throws Exception {
+    @Test
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @WithMockUser(username = "user1", password = "password", roles = {"USER"})
+    void testWeatherForecastAverage() throws Exception {
 
 		Map<String, Object> resultMap = new HashMap<>();
 
@@ -60,10 +60,10 @@ class ForecastControllerTest {
 		mockMvc.perform(get("/forecast").param("city", "Bengaluru")).andExpect(status().isOk());
 	}
 
-	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@WithMockUser(username = "user1", password = "password", roles = {"USER"})
-	public void testWeatherForecastAverage_1() throws Exception {
+    @Test
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @WithMockUser(username = "user1", password = "password", roles = {"USER"})
+    void testWeatherForecastAverage_1() throws Exception {
 		LOG.info("Checking the City not found exception");
 		ResponseEntity testData = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		Mockito.when(forecastService.weatherForecastAverage(Mockito.anyString())).thenReturn(testData);

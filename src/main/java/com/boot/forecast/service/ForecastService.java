@@ -35,23 +35,39 @@ import com.boot.forecast.util.ForecastUtil;
 
 // @formatter:off
 
+/**
+ * The Class ForecastService.
+ */
 @Service
 public class ForecastService {
 
+	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(ForecastService.class);
 
+	/** The forecast URL. */
 	@Value("${forecast.url:api.openweathermap.org/data/2.5/forecast}")
 	private String FORECAST_URL;
 
+	/** The API key. */
 	@Value("${forecast.apikey:}")
 	private String API_KEY;
 
+	/** The count. */
 	@Value("${forecast.count:32}")
 	private int COUNT;
 
+	/** The rest template. */
 	@Autowired
 	private RestTemplate restTemplate;
 
+	/**
+	 * Gets the forecast info.
+	 *
+	 * @param city the city
+	 * @param days the days
+	 * @return the forecast info
+	 * @throws Exception the exception
+	 */
 	public ResponseEntity<String> getForecastInfo(@NonNull String city, @Nullable String days) throws Exception {
 		try {
 			int noOfDays = !StringUtils.isBlank(days) && Integer.valueOf(days) >= 1 ? (Integer.valueOf(days) * 8) : COUNT;
@@ -64,6 +80,13 @@ public class ForecastService {
 		}
 	}
 
+	/**
+	 * Weather forecast average.
+	 *
+	 * @param city the city
+	 * @return the response entity
+	 * @throws Exception the exception
+	 */
 	public ResponseEntity<Map<String, Object>> weatherForecastAverage(@NonNull String city) throws Exception {
 		var resultMap = new HashMap<String, Object>();
 		var result = new ArrayList<WeatherAverageDTO>();
